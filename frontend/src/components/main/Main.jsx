@@ -13,6 +13,7 @@ import {
   Rating,
   Dialog,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
@@ -68,7 +69,9 @@ const Main = () => {
       // setAlignment(newValue);
     // B]/ 3- Execute the function of clicked buttons -> upon the clicked button's incomming value as a prop value of both {setAlignment}  & {setmyData}  :
     const handleAlignment = (event, newValue) => {
-      setmyData(newValue);
+      if (newValue !== null) {
+        setmyData(newValue);
+      }
     };
   
   // C] Conditional return of functional component [incase of each retunred case from the Strapi server props {data, isLoading , error} ] :
@@ -144,7 +147,7 @@ const Main = () => {
             {data.data.map((item) => {
               return (
                 <Card
-                  key={item}
+                  key={item.id}
                   sx={{
                     width: 333, 
                     mt: 6,
@@ -244,19 +247,27 @@ const Main = () => {
     // 2- Conditional return of functional component in case of [isLoading data] :
     if (isLoading) {
       return(
-        <Typography variant="h6">LOADING ........</Typography>
+        <Box sx={{ py:11 , textAlign:"center" }}>
+          <CircularProgress />
+        </Box>
       );
     }
 
     // 3- Conditional return of functional component in case of [error] of getting data :
     if (error) {
+      console.log(error);
       return (
-        <Typography variant="h6">
-          {
-            // @ts-ignore
-            error.message
-          }
-        </Typography>
+        <Container sx={{ py:11 , textAlign:"center" }} >
+          <Typography variant="h6">
+            {error.
+// @ts-ignore
+            error}
+          </Typography>
+
+          <Typography variant="h6">
+            Please Check your Network and try again
+          </Typography>
+        </Container>
       );
     }
 };

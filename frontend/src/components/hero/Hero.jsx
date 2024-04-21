@@ -36,8 +36,8 @@
 
   // Define an array of objects -> to store each single [slider]'s data of dynamic slider details contents :
   const mySlider = [
-    { text: "MEN", link: "src/images/banner-15.jpg" },
-    { text: "WOMEN", link: "src/images/banner-25.jpg" },
+    { text: "MEN", link: "./images/banner-15.jpg" },
+    { text: "WOMEN", link: "./images/banner-25.jpg" },
   ];
 
 const Hero = () => {
@@ -136,7 +136,7 @@ const Hero = () => {
         <Box sx={{ display: { xs: "none", md: "block", minWidth: "26.3%" } }}   >
           
           <Box sx={{ position: "relative" }} >
-            <img src="src\images\banner-17.jpg" alt="" width="100%" />
+            <img src=".\images\banner-17.jpg" alt="" width="100%" />
 
             <Stack
               sx={{
@@ -190,7 +190,7 @@ const Hero = () => {
           </Box>
 
           <Box sx={{ position: "relative"  }}  >
-            <img src="src\images\banner-16.jpg" alt="" width="100%" />
+            <img src=".\images\banner-16.jpg" alt="" width="100%" />
 
             <Stack
               sx={{
