@@ -52,6 +52,7 @@ export const getDesignTokens = (mode) => ({
           favColor: {
             main: grey[800],
           },
+
           text: {
             primary: "#fff",
           },

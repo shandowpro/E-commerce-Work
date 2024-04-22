@@ -76,9 +76,15 @@ const Main = () => {
   
   // C] Conditional return of functional component [incase of each retunred case from the Strapi server props {data, isLoading , error} ] :
     // 1- Conditional return of functional component in case of [data : the data is obtained from the database ] :
+
+    // Define a useState Variable for [Storing data of add to cart] - by assinging an empty  object inside  the innitial value ]      : 
+      const [clickedProduct , setclickedProduct ] =   useState ({}) ;    
+ 
+ 
+
     if (data) {
       // Printing testing [console log] of the obtained data [data.data] according to the assinged prop sub url :
-      console.log(data.data) ;
+      // console.log(data.data) ;
       return (
         <Container sx={{ mt: 9, py: 3 }}>
           <Stack
@@ -191,8 +197,13 @@ const Main = () => {
                     <Button
                       size="small"
                       sx={{ textTransform: "capitalize" }}
-                      onClick={handleClickOpen}
-                    >
+                      onClick={ ()=>
+                         { handleClickOpen()
+                          setclickedProduct(item)
+                          console.log(item)
+                         }
+                      }
+                      >
                       <AddShoppingCartOutlinedIcon
                         fontSize="small"
                         sx={{ mr: 1 }}
@@ -238,7 +249,7 @@ const Main = () => {
               <Close />
             </IconButton>
 
-            <ProductDetails />
+            <ProductDetails clickedProduct = {clickedProduct} />
           </Dialog>
         </Container>
       );

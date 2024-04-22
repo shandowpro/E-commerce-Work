@@ -5,9 +5,22 @@
 // import React from 'react' ;
 
 import { AddShoppingCartOutlined } from "@mui/icons-material";
-import { Box, Typography, Stack, Button } from "@mui/material";
+import { Box, Typography, Stack, Button, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { useState } from "react";
 
-const ProductDetails = () => {
+
+// Importing the libraries of toggling buttons of add to cart imnages [toggling imasges opacity] :  
+// import ToggleButton from '@material-ui/lab/ToggleButton';
+// import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
+
+// This component will hold a prop [clickedProduct : the defiend state of the product item ] come form the other component [Main]  : 
+const ProductDetails = ({clickedProduct}) => {
+  
+ 
+
+  const [ selectedImg ,  setselectedImg  ] = useState(0) ;
+
   return (
     <Box
       sx={{
@@ -18,18 +31,20 @@ const ProductDetails = () => {
       }}
     >
       <Box sx={{ display: "flex" }}>
-        <img width={300} alt="" src="src\images\1.jpg" />
+        <img width={322} alt="" 
+          src= {clickedProduct.attributes.productImg.data[selectedImg].attributes.url} 
+        />
       </Box>
 
-      <Box sx={{ textAlign: { xs: "center", sm: "left" } }}>
-        <Typography varaint="h5">WOMEN 's FASHION</Typography>
+      <Box sx={{ py : 2 , textAlign: { xs: "center", sm: "left" } }}>
+        <Typography varaint="h5"> {clickedProduct.attributes.productTitle}  </Typography>
 
         <Typography my={0.4} fontSize={"22px"} color={"crimson"} varaint="h5">
-          $12.99
+          ${clickedProduct.attributes.productPrice}
         </Typography>
 
         <Typography varaint="body1">
-          Products Details Products Details Products DetailsProducts Details Products Details
+        {clickedProduct.attributes.productDescription}
         </Typography>
 
         <Stack
@@ -38,17 +53,51 @@ const ProductDetails = () => {
           gap={1}
           my={2}
         >
-          {["src/images/1.jpg", "src/images/2.jpg"].map((item) => {
+        <ToggleButtonGroup 
+          value={selectedImg}
+          exclusive
+           sx = {{
+            ".Mui-selected" : {
+              border : '1px solid royalblue !important', 
+              borderRadius : '5px !important', 
+              opacity : '1', 
+              backgroundColor : 'initial', 
+            }, 
+          }}
+        >
+
+          { clickedProduct.attributes.productImg.data.map((item , index) => {
             return (
-              <img
-                key={item}
-                src={item}
-                style={{ borderRadius: 3 }}                 
-                width={100}
-                alt=""
-              />
+                <ToggleButton   
+                  key={item.id}  
+                  value={index}
+                  sx = {{  
+                    width: '110px' ,
+                    height: '110px' ,
+                    mx: 1,
+                    p: '0',
+                    opacity: '0.5' 
+                  }} 
+                >
+                  <img
+                    onClick = { () => {
+                      setselectedImg(index) ;
+                    }}
+                    
+                    src={item.attributes.url}
+                    style={{ borderRadius: 3 }}                 
+                    width={"100%"}
+                    height={"100%"}
+                    alt=""
+                  />
+                 
+              </ToggleButton>
+              
             );
           })}
+ 
+        </ToggleButtonGroup>
+
         </Stack>
 
         <Button
