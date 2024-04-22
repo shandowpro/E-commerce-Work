@@ -31,7 +31,7 @@ const ProductDetails = ({clickedProduct}) => {
       }}
     >
       <Box sx={{ display: "flex" }}>
-        <img width={322} alt="" 
+        <img width={360} alt="" 
           src= {clickedProduct.attributes.productImg.data[selectedImg].attributes.url} 
         />
       </Box>

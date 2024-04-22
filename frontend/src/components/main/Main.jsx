@@ -30,6 +30,8 @@ import { Close } from "@mui/icons-material";
 import ProductDetails from "./ProductDetails";
 import { useGetproductByNameQuery } from "../../Redux/product";
 
+import {AnimatePresence, motion} from "framer-motion" ;
+
 const Main = () => {
   // const [alignment, setAlignment] = useState("left");
   
@@ -150,78 +152,87 @@ const Main = () => {
             flexWrap={"wrap"}
             justifyContent={"space-between"}
           >
-            {data.data.map((item) => {
-              return (
-                <Card
-                  key={item.id}
-                  sx={{
-                    width: 333, 
-                    mt: 6,
-                    ":hover .MuiCardMedia-root": {
-                      scale: "1.1",
-                      rotate: "1deg",
-                      transition: ".45s",
-                    },
-                  }}
-                >
-                  <CardMedia
-                    sx={{ height: 300 }}
-                    // @ts-ignore
-                    image={`${
-                      item.attributes.productImg.data[0].attributes.url
-                    }`}
-                    title={item.attributes.productTitle}
-                  />
-
-                  <CardContent>
-                    <Stack
-                      direction={"row"}
-                      justifyContent={"space-between"}
-                      alignItems={"center"}
-                    >
-                      <Typography gutterBottom variant="h6" component="div">
-                        {item.attributes.productTitle}
-                      </Typography>
-
-                      <Typography variant="subtitle1" component="p">
-                        ${item.attributes.productPrice}
-                      </Typography>
-                    </Stack>
-
-                    <Typography variant="body2" color="text.secondary">
-                      {item.attributes.productDescription}
-                    </Typography>
-                  </CardContent>
-
-                  <CardActions sx={{ justifyContent: "space-between" }}>
-                    <Button
-                      size="small"
-                      sx={{ textTransform: "capitalize" }}
-                      onClick={ ()=>
-                         { handleClickOpen()
-                          setclickedProduct(item)
-                          console.log(item)
-                         }
-                      }
-                      >
-                      <AddShoppingCartOutlinedIcon
-                        fontSize="small"
-                        sx={{ mr: 1 }}
-                      />
-                      Add to Cart
-                    </Button>
-
-                    <Rating
-                      name="read-only"
-                      precision={0.5}
-                      value={item.attributes.productRating}
-                      readOnly
-                      size="medium"
+ 
+            <AnimatePresence  >
+        
+              {data.data.map((item) => {
+                return (
+                  <Card
+                    component = {motion.section}
+                    layout
+                    initial = {{ transform : "scale(0)" }}                  
+                    animate  = {{  transform : "scale(1)"  }}                  
+                    transition  = {{  duration : 1.6 , type : "spring" , stiffness: 50 }} 
+                    key={item.id}
+                    sx={{
+                      width: 333, 
+                      mt: 6,
+                      ":hover .MuiCardMedia-root": {
+                        scale: "1.1",
+                        rotate: "1deg",
+                        transition: ".45s",
+                      },
+                    }}
+                  >
+                    <CardMedia
+                      sx={{ height: 300 }}
+                      // @ts-ignore
+                      image={`${
+                        item.attributes.productImg.data[0].attributes.url
+                      }`}
+                      title={item.attributes.productTitle}
                     />
-                  </CardActions>
-                </Card>
-              );
-            })}
+
+                    <CardContent>
+                      <Stack
+                        direction={"row"}
+                        justifyContent={"space-between"}
+                        alignItems={"center"}
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          {item.attributes.productTitle}
+                        </Typography>
+
+                        <Typography variant="subtitle1" component="p">
+                          ${item.attributes.productPrice}
+                        </Typography>
+                      </Stack>
+
+                      <Typography variant="body2" color="text.secondary">
+                        {item.attributes.productDescription}
+                      </Typography>
+                    </CardContent>
+
+                    <CardActions sx={{ justifyContent: "space-between" }}>
+                      <Button
+                        size="small"
+                        sx={{ textTransform: "capitalize" }}
+                        onClick={ ()=>
+                          { handleClickOpen()
+                            setclickedProduct(item)
+                            console.log(item)
+                          }
+                        }
+                        >
+                        <AddShoppingCartOutlinedIcon
+                          fontSize="small"
+                          sx={{ mr: 1 }}
+                        />
+                        Add to Cart
+                      </Button>
+
+                      <Rating
+                        name="read-only"
+                        precision={0.5}
+                        value={item.attributes.productRating}
+                        readOnly
+                        size="medium"
+                      />
+                    </CardActions>
+                  </Card>
+                );
+              })}
+            </AnimatePresence>
           </Stack>
 
           <Dialog
